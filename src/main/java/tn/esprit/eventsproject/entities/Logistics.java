@@ -14,6 +14,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
+
 @Entity
 public class Logistics implements Serializable {
     @Id
