@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        SCANNER_HOME=  tool 'sonarqube-scanner-for-jenkins'
+        SCANNER_HOME=  tool 'sonarqube-scanner'
     }
 
     stages {
