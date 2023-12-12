@@ -26,7 +26,9 @@ pipeline {
                 script {
                     def scannerHome = tool 'sonarqube-scanner'
                     withSonarQubeEnv('SonarQube Server') {
-                    sh "${scannerHome}/bin/sonar-scanner"
+                    sh ''' ${scannerHome}/bin/sonar-scanner -Dsonner.url=http://http://192.168.33.10:9000/ -Dsonner.login=squ_24789fd1d16c13c8afd775145d51e8cdae602113 -Dsonner.projectName=eventsProject \
+                        -Dsonner.java.binaries=. \
+                        -Dsonner.projectKey=eventsProject '''
                     }
                 }
             }
