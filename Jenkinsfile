@@ -43,16 +43,52 @@ pipeline {
 
 
         stage('Prepare Version') {
-            steps {
-                echo "Prepare Version"
-            }
-        }
+    steps {
+        // Prepare version (if needed)
+        script {
+            def versionFile = 'path/to/version.properties'
+            def newVersion = readFile(versionFile).trim()
 
-        stage('Distribute Version to Nexus') {
-            steps {
-               echo "Distribute Version to Nexus"
-            }
+            // Assume you want to increment the version (you can customize as needed)
+            def versionComponents = newVersion.split("\\.")
+            versionComponents[2] = (versionComponents[2] as Integer + 1).toString()
+            newVersion = versionComponents.join('.')
+
+            writeFile file: versionFile, text: newVersion
+
+            echo "Updated version to: ${newVersion}"
         }
+    }
+}
+
+stage('Distribute Version') {
+    steps {
+        // Deploy to Nexus or other artifact repository
+        script {
+            def mavenSettings = '''
+                <?xml version="1.0" encoding="UTF-8"?>
+                <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                                              http://maven.apache.org/xsd/settings-1.0.0.xsd">
+                  <servers>
+                    <server>
+                      <id>nexus</id>
+                      <username>your-nexus-username</username>
+                      <password>your-nexus-password</password>
+                    </server>
+                  </servers>
+                </settings>
+            '''
+
+            writeFile file: 'settings.xml', text: mavenSettings
+
+            // Deploy to Nexus
+            sh 'mvn deploy --settings settings.xml'
+        }
+    }
+}
+
 
         stage('Build Docker Image') {
             steps {
