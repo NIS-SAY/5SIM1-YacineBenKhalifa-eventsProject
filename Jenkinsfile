@@ -29,9 +29,8 @@ pipeline {
                 // Add SonarQube analysis step here
                 script {
                     withSonarQubeEnv('sonarserver') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonner.host.url=http://http://192.168.33.10:9000/ -Dsonner.login=1d105ea9eafe459607475b492717636f383c0155 -Dsonner.projectName=eventsProject \
-                        -Dsonner.java.binaries=. \
-                        -Dsonner.projectKey=eventsProject '''
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonner.host.url=http://http://192.168.33.10:9000/ -Dsonner.login=1d105ea9eafe459607475b492717636f383c0155 -Dsonner.projectKey=eventsProject -Dsonner.projectName=eventsProject \
+                        -Dsonner.java.binaries=.  '''
                     }
                 }
             }
