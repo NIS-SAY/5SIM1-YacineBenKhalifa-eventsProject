@@ -25,16 +25,22 @@ pipeline {
         }
 
         stage('Run SonarQube Analysis') {
-            steps {
-                // Add SonarQube analysis step here
-                script {
-                    withSonarQubeEnv('sonarserver') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonner.host.url=http://http://192.168.33.10:9000/ -Dsonner.login=1d105ea9eafe459607475b492717636f383c0155 -Dsonner.projectKey=eventsProject -Dsonner.projectName=eventsProject \
-                        -Dsonner.java.binaries=.  '''
-                    }
-                }
+    steps {
+        script {
+            withSonarQubeEnv('sonarserver') {
+                sh ''' 
+                    $SCANNER_HOME/bin/sonar-scanner \
+                    -Dsonar.host.url=http://192.168.33.10:9000/ \
+                    -Dsonar.login=1d105ea9eafe459607475b492717636f383c0155 \
+                    -Dsonar.projectKey=eventsProject \
+                    -Dsonar.projectName=eventsProject \
+                    -Dsonar.java.binaries=.
+                '''
             }
         }
+    }
+}
+
 
         stage('Prepare Version') {
             steps {
