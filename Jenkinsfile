@@ -44,8 +44,8 @@ pipeline {
 
         stage('Prepare Version') {
     steps {
-        // Prepare version (if needed)
         script {
+            // Prepare version (if needed)
             def versionFile = 'path/to/version.properties'
             def newVersion = readFile(versionFile).trim()
 
@@ -63,9 +63,9 @@ pipeline {
 
 stage('Distribute Version') {
     steps {
-        // Deploy to Nexus or other artifact repository
         script {
-            def mavenSettings = '''
+            // Deploy to Nexus or other artifact repository
+            def mavenSettings = """
                 <?xml version="1.0" encoding="UTF-8"?>
                 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -79,7 +79,7 @@ stage('Distribute Version') {
                     </server>
                   </servers>
                 </settings>
-            '''
+            """
 
             writeFile file: 'settings.xml', text: mavenSettings
 
