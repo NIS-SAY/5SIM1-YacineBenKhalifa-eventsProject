@@ -24,39 +24,20 @@ pipeline {
             }
         }
 
-        stage('Run SonarQube Analysis') {
-    steps {
-        script {
-            withSonarQubeEnv('sonarserver') {
-                sh ''' 
-                    $SCANNER_HOME/bin/sonar-scanner \
-                    -Dsonar.host.url=http://192.168.33.10:9000/ \
-                    -Dsonar.login=1d105ea9eafe459607475b492717636f383c0155 \
-                    -Dsonar.projectKey=eventsProject \
-                    -Dsonar.projectName=eventsProject \
-                    -Dsonar.java.binaries=.
-                '''
+     stage('Run SonarQube Analysis') {
+        steps {
+            script {
+                withSonarQubeEnv('sonarserver') {
+                    sh ''' 
+                        $SCANNER_HOME/bin/sonar-scanner \
+                        -Dsonar.host.url=http://192.168.33.10:9000/ \
+                        -Dsonar.login=1d105ea9eafe459607475b492717636f383c0155 \
+                        -Dsonar.projectKey=eventsProject \
+                        -Dsonar.projectName=eventsProject \
+                        -Dsonar.java.binaries=.
+                    '''
+                }
             }
         }
-    }
+    } 
 }
-
-
-     
-       
-   
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
