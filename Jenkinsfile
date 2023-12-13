@@ -28,7 +28,7 @@ pipeline {
             steps {
                 // Add SonarQube analysis step here
                 script {
-                    withSonarQubeEnv('SonarQube Server') {
+                    withSonarQubeEnv('SonarQube sonarserver') {
                     sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonner.url=http://http://192.168.33.10:9000/ -Dsonner.login=squ_50037a514a69bbf4c886e8b755e1c367dfe6ed48 -Dsonner.projectName=eventsProject \
                         -Dsonner.java.binaries=. \
                         -Dsonner.projectKey=eventsProject '''
